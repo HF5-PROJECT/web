@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BaseRegister from "../../components/registerForm.vue";
+---
+
+<Layout title="Register">
+	<div class="flex h-full content-center place-items-center">
+		<BaseRegister client:load endpoint="/api/auth/register"></BaseRegister>
+	</div>
+</Layout>
+
