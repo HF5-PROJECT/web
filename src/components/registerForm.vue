@@ -18,11 +18,11 @@
                         <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" place-holder="Confirm Password"></BaseInput>
                     </div>
                     <div>
-                        <span v-if="errorMessage" class="text-red-600 w-full ml-2 mb-4 text-xs">{{ errorMessage }}</span>
+                        <p class="text-red-600 w-full ml-2 mb-2 pt-4 text-xs">{{ errorMessage }}</p>
                         <BaseButton type="submit" @click="register">Register</BaseButton>
                     </div>
                     <div>
-                        <p class="text-primary-300 font-bold w-full mb-4 text-xs">Already have an account? Click <a class="text-primary-200 underline" href="/login">here</a>, to log in.</p>
+                        <p class="text-primary-300 font-bold w-full mb-4 text-sm">Already have an account? Click <a class="text-primary-200 underline" href="/login">here</a>, to log in.</p>
                     </div>
                 </form>
             </div>
@@ -78,7 +78,7 @@ export default {
             })
             .then(async (response) => {
                 const json = await response.json();
-                if (json.statusCode === 201) {
+                if (response.status === 201) {
                     window.location.href = "/";
                 } else{
                     this.errorMessage = json.message;
