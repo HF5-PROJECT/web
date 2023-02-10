@@ -22,7 +22,7 @@
                         <BaseButton type="submit" @click="register">{{ $t("auth.register") }}</BaseButton>
                     </div>
                     <div>
-                        <p class="text-primary-300 font-bold w-full mb-4 text-sm" v-html="$t('auth.alreadyHaveAnAccount')"></p>
+                        <p class="text-primary-300 font-bold w-full mb-4 text-xs" v-html="$t('auth.alreadyHaveAnAccount')"></p>
                     </div>
                 </form>
             </div>

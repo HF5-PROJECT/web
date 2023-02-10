@@ -34,9 +34,7 @@
             }}</BaseButton>
           </div>
           <div>
-            <p class="text-primary-300 font-bold w-full mb-4 text-xs">
-              {{ $t("auth.dontHaveAnAccount") }}
-            </p>
+            <p class="text-primary-300 font-bold w-full mb-4 text-xs" v-html="$t('auth.dontHaveAnAccount')"></p>
           </div>
         </form>
       </div>
