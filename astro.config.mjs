@@ -14,7 +14,9 @@ import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), vue(), prefetch()],
+  integrations: [tailwind(), vue({
+    appEntrypoint: '/src/pages/_app'
+  }), prefetch()],
   output: "server",
   adapter: node({
     mode: 'server'
