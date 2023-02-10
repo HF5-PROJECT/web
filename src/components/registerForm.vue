@@ -1,28 +1,28 @@
 <template>
     <div class="mx-auto p-12 rounded-[50px] w-min bg-primary-600">
         <div class="p-4">
-            <h1 class="text-3xl font-medium mb-1">Register</h1>
-            <p>Fill all fields</p>
+            <h1 class="text-3xl font-medium mb-1">{{ $t("auth.register") }}</h1>
+            <p>{{ $t("auth.fillOutYourInfo") }}</p>
             <div class="mt-12">
                 <form class="space-y-5">
                     <div class="w-96">
-                        <BaseInput id="name" type="text" v-model="name" :error-text="nameErrorMessage" place-holder="Name" :auto-focus="true"></BaseInput>
+                        <BaseInput id="name" type="text" v-model="name" :error-text="nameErrorMessage" :place-holder="$t('auth.name')" :auto-focus="true"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="email" type="email" v-model="email" :error-text="emailErrorMessage" place-holder="Email"></BaseInput>
+                        <BaseInput id="email" type="email" v-model="email" :error-text="emailErrorMessage" :place-holder="$t('auth.email')"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="password" type="password" v-model="password" :error-text="passwordErrorMessage" place-holder="Password"></BaseInput>
+                        <BaseInput id="password" type="password" v-model="password" :error-text="passwordErrorMessage" :place-holder="$t('auth.password')"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" place-holder="Confirm Password"></BaseInput>
+                        <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" :place-holder="$t('auth.confirmPassword')"></BaseInput>
                     </div>
                     <div>
                         <p class="text-red-600 w-full ml-2 mb-2 pt-4 text-xs">{{ errorMessage }}</p>
-                        <BaseButton type="submit" @click="register">Register</BaseButton>
+                        <BaseButton type="submit" @click="register">{{ $t("auth.register") }}</BaseButton>
                     </div>
                     <div>
-                        <p class="text-primary-300 font-bold w-full mb-4 text-sm">Already have an account? Click <a class="text-primary-200 underline" href="/login">here</a>, to log in.</p>
+                        <p class="text-primary-300 font-bold w-full mb-4 text-sm" v-html="$t('auth.alreadyHaveAnAccount')"></p>
                     </div>
                 </form>
             </div>
@@ -59,7 +59,7 @@ export default {
     methods: {
         register(): void {
             if (!this.doesPasswordMatch) {
-                this.errorMessage = "Password fields should be identical";
+                this.errorMessage = this.$t("auth.passwordsIdentical");
                 return;
             }
 
@@ -70,10 +70,9 @@ export default {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "name": this.name || null,
-                    "email": this.email || null,
-                    "address": "",
-                    "password": this.password || null
+                    "name": this.name,
+                    "email": this.email,
+                    "password": this.password
                 })
             })
             .then(async (response) => {
