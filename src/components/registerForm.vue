@@ -1,20 +1,20 @@
 <template>
     <div class="mx-auto p-12 rounded-[50px] w-min bg-primary-600">
-        <div class="p-5">
+        <div class="p-4">
             <h1 class="text-3xl font-medium mb-1">Register</h1>
             <p>Fill all fields</p>
             <div class="mt-12">
                 <form class="space-y-5">
-                    <div class="input-div">
-                        <BaseInput id="name" type="text" v-model="name" :error-text="nameErrorMessage" place-holder="Name"></BaseInput>
+                    <div class="w-96">
+                        <BaseInput id="name" type="text" v-model="name" :error-text="nameErrorMessage" place-holder="Name" :auto-focus="true"></BaseInput>
                     </div>
-                    <div class="input-div">
+                    <div class="w-96">
                         <BaseInput id="email" type="email" v-model="email" :error-text="emailErrorMessage" place-holder="Email"></BaseInput>
                     </div>
-                    <div class="input-div">
+                    <div class="w-96">
                         <BaseInput id="password" type="password" v-model="password" :error-text="passwordErrorMessage" place-holder="Password"></BaseInput>
                     </div>
-                    <div class="input-div">
+                    <div class="w-96">
                         <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" place-holder="Confirm Password"></BaseInput>
                     </div>
                     <div>
@@ -91,8 +91,3 @@ export default {
     }
     }
 </script>
-<style lang="scss">
-    .input-div {
-        width: 350px;
-    }
-</style>
