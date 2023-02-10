@@ -1,7 +1,7 @@
 <template>
-    <div class="mx-auto p-5 rounded-3xl w-min bg-primary-600">
+    <div class="mx-auto p-12 rounded-[50px] w-min bg-primary-600">
         <div class="p-5">
-            <h1>Register</h1>
+            <h1 class="text-3xl font-medium mb-1">Register</h1>
             <p>Fill all fields</p>
             <div class="mt-12">
                 <form class="space-y-5">
@@ -18,8 +18,11 @@
                         <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" place-holder="Confirm Password"></BaseInput>
                     </div>
                     <div>
-                    <p v-if="errorMessage" class="text-red-600 w-full mb-4 text-xs">{{ errorMessage }}</p>
-                        <button type="submit" class="w-full bg-primary-500 rounded-xl p-2" @click.prevent="register">Register</button>
+                        <span v-if="errorMessage" class="text-red-600 w-full ml-2 mb-4 text-xs">{{ errorMessage }}</span>
+                        <BaseButton type="submit" @click="register">Register</BaseButton>
+                    </div>
+                    <div>
+                        <p class="text-primary-300 font-bold w-full mb-4 text-xs">Already have an account? Click <a class="text-primary-200 underline" href="/login">here</a>, to log in.</p>
                     </div>
                 </form>
             </div>
@@ -29,9 +32,11 @@
 
 <script lang="ts">
 import BaseInput from "./baseInput.vue";
+import BaseButton from "./baseButton.vue";
+
 export default {
     components: {
-        BaseInput
+        BaseInput, BaseButton
     },
     data() {
         return {
@@ -88,6 +93,6 @@ export default {
 </script>
 <style lang="scss">
     .input-div {
-        width: 300px;
+        width: 350px;
     }
 </style>

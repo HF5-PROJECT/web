@@ -4,7 +4,7 @@
       <div class="relative">
         <input
           :id="id"
-          class="peer w-full px-2 focus:outline-none focus:ring-2 focus:ring-primary-500 hover:shadow focus:border-primary-700 invalid:ring-2 invalid:ring-red-500 invalid:focus:ring-red-500 text-primary-500 bg-primary-200 p-1.5 rounded-xl placeholder:font-medium"
+          class="peer w-full px-4 placeholder:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 hover:shadow focus:border-primary-700 invalid:ring-2 invalid:ring-red-500 invalid:focus:ring-red-500 text-primary-500 bg-primary-200 p-1.5 rounded-xl placeholder:font-medium"
           :type="getType"
           :value="modelValue"
           :min="min"
@@ -130,8 +130,3 @@
     }
   });
   </script>
-  <style>
-  input::placeholder {
-      color: #56483E;
-  }
-  </style>
