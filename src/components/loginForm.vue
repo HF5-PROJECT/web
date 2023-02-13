@@ -30,11 +30,11 @@
               >{{ errorMessage }}</span
             >
             <BaseButton type="submit" @click="login">{{
-              $t("auth.fillOutYourInfo")
+              $t("auth.login")
             }}</BaseButton>
           </div>
           <div>
-            <p class="text-primary-300 font-bold w-full mb-4 text-xs" v-html="$t('auth.dontHaveAnAccount')"></p>
+            <p class="text-primary-300 font-bold w-full mb-4 text-sm" v-html="$t('auth.dontHaveAnAccount')"></p>
           </div>
         </form>
       </div>
@@ -62,6 +62,7 @@ export default {
   },
   methods: {
     login(): void {
+      console.log("nig");
       fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -75,8 +76,8 @@ export default {
       })
         .then(async (response) => {
           const json = await response.json();
-          if (json.statusCode === 200) {
-            // Save access token
+          if (response.status === 200) {
+            localStorage.setItem('accessToken', json.accessToken);
             window.location.href = "/";
           } else {
             this.errorMessage = json.message;

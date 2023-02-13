@@ -22,7 +22,7 @@
                         <BaseButton type="submit" @click="register">{{ $t("auth.register") }}</BaseButton>
                     </div>
                     <div>
-                        <p class="text-primary-300 font-bold w-full mb-4 text-xs" v-html="$t('auth.alreadyHaveAnAccount')"></p>
+                        <p class="text-primary-300 font-bold w-full mb-4 text-sm" v-html="$t('auth.alreadyHaveAnAccount')"></p>
                     </div>
                 </form>
             </div>
@@ -76,7 +76,7 @@ export default {
             .then(async (response) => {
                 const json = await response.json();
                 if (response.status === 201) {
-                    window.location.href = "/";
+                    window.location.href = "/login";
                 } else{
                     this.errorMessage = json.message;
                 }
