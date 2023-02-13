@@ -10,7 +10,6 @@
               id="email"
               type="email"
               v-model="email"
-              :error-text="emailErrorMessage"
               :place-holder="$t('auth.email')"
             ></BaseInput>
           </div>
@@ -19,7 +18,6 @@
               id="password"
               type="password"
               v-model="password"
-              :error-text="passwordErrorMessage"
               :place-holder="$t('auth.password')"
             ></BaseInput>
           </div>
@@ -56,8 +54,6 @@ export default {
       email: "",
       password: "",
       errorMessage: "",
-      emailErrorMessage: "",
-      passwordErrorMessage: "",
     };
   },
   methods: {
