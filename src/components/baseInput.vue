@@ -60,7 +60,7 @@
           </svg>
         </div>
       </div>
-      <p v-if="errorText" class="mt-2 text-sm text-red-500">
+      <p v-if="errorText" class="ml-2 mt-2 text-xs text-red-500">
         {{ errorText }}
       </p>
     </div>

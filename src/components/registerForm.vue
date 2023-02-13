@@ -6,19 +6,19 @@
             <div class="mt-12">
                 <form class="space-y-5">
                     <div class="w-96">
-                        <BaseInput id="name" type="text" v-model="name" :error-text="nameErrorMessage" :place-holder="$t('auth.name')" :auto-focus="true"></BaseInput>
+                        <BaseInput id="name" type="text" v-model="name" :place-holder="$t('auth.name')" :auto-focus="true"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="email" type="email" v-model="email" :error-text="emailErrorMessage" :place-holder="$t('auth.email')"></BaseInput>
+                        <BaseInput id="email" type="email" v-model="email" :place-holder="$t('auth.email')"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="password" type="password" v-model="password" :error-text="passwordErrorMessage" :place-holder="$t('auth.password')"></BaseInput>
+                        <BaseInput id="password" type="password" min="8" v-model="password" :place-holder="$t('auth.password')"></BaseInput>
                     </div>
                     <div class="w-96">
-                        <BaseInput id="passwordConfirm" type="password" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" :place-holder="$t('auth.confirmPassword')"></BaseInput>
+                        <BaseInput id="passwordConfirm" type="password" min="8" v-model="confirmPassword" :error-text="passwordConfirmErrorMessage" :place-holder="$t('auth.confirmPassword')"></BaseInput>
                     </div>
                     <div>
-                        <p class="text-red-600 w-full ml-2 mb-2 pt-4 text-xs">{{ errorMessage }}</p>
+                        <p class="text-red-500 w-full ml-2 mb-2 pt-4 text-xs">{{ errorMessage }}</p>
                         <BaseButton type="submit" @click="register">{{ $t("auth.register") }}</BaseButton>
                     </div>
                     <div>
@@ -45,9 +45,6 @@ export default {
             password: "",
             confirmPassword: "",
             errorMessage: "",
-            nameErrorMessage: "",
-            emailErrorMessage: "",
-            passwordErrorMessage: "",
             passwordConfirmErrorMessage: ""
         }
     },
@@ -59,9 +56,10 @@ export default {
     methods: {
         register(): void {
             if (!this.doesPasswordMatch) {
-                this.errorMessage = this.$t("auth.passwordsIdentical");
+                this.passwordConfirmErrorMessage = this.$t("auth.passwordsIdentical");
                 return;
             }
+            this.passwordConfirmErrorMessage = "";
 
             fetch("/api/auth/register", {
                 method: "POST",
