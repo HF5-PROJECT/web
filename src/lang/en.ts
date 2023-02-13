@@ -7,8 +7,11 @@ export default {
     email: "Email",
     password: "Password",
     confirmPassword: "Confirm password",
-    alreadyHaveAnAccount: "Already have an account?",
+    passwordsIdentical: "Password fields should be identical",
+    alreadyHaveAnAccount:
+      "Already have an account? Click <a class='text-primary-200 underline' href='/login'>here</a>, to log in.",
     login: "Login",
-    dontHaveAnAccount: "Don't have an account?",
+    dontHaveAnAccount:
+      "Don't have an account? Click <a class='text-primary-200 underline' href='/register'>here</a>, to sign up.",
   },
 };

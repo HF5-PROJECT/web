@@ -1,0 +1,10 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/loginForm.vue";
+---
+
+<Layout title="Login">
+  <div class="flex h-full content-center place-items-center">
+    <LoginForm client:load />
+  </div>
+</Layout>

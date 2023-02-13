@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RegisterForm from "../components/registerForm.vue";
+---
+
+<Layout title="Register">
+	<div class="flex h-full content-center place-items-center">
+		<RegisterForm client:load></RegisterForm>
+	</div>
+</Layout>
+
