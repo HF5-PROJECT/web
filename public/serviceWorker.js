@@ -164,7 +164,7 @@ async function processTokenOnFetch(event) {
 
         /**
          * If Access Token a string and is not ACCESS_TOKEN_CONFIRMED_UNAUTHORIZED, then we can assume that it's a real JWT.
-         * All we have to do now is to modify the original request and add our 'Grammatip-Authorization' header.
+         * All we have to do now is to modify the original request and add our 'Authorization' header.
          */
         if (typeof accessToken === 'string' && accessToken !== ACCESS_TOKEN_CONFIRMED_UNAUTHORIZED) {
             const modifiedRequest = addAuthHeaderToRequest(event.request, accessToken);
@@ -287,7 +287,7 @@ async function HandleUnAuthorizes(event, modifiedRequest) {
 }
 
 /**
- * Add Grammatip-Authorization header to a request
+ * Add Authorization header to a request
  *
  * @param {Request} request
  * @param {String} accessToken
@@ -295,7 +295,7 @@ async function HandleUnAuthorizes(event, modifiedRequest) {
  */
 function addAuthHeaderToRequest(request, accessToken) {
     const modifiedHeaders = new Headers(request.headers);
-    modifiedHeaders.append('Grammatip-Authorization', (accessToken));
+    modifiedHeaders.append('Authorization', 'Bearer ' + accessToken));
 
     const modifiedRequestInit = { headers: modifiedHeaders, mode: 'same-origin' };
     return new Request(request, modifiedRequestInit);

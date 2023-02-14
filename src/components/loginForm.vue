@@ -74,7 +74,6 @@ export default {
         .then(async (response) => {
           const json = await response.json();
           if (response.status === 200) {
-            localStorage.setItem('accessToken', json.accessToken);
             window.location.href = "/";
           } else {
             this.errorMessage = json.message;
