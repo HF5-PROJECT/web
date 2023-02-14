@@ -9,9 +9,10 @@ export default {
     confirmPassword: "Confirm password",
     passwordsIdentical: "Password fields should be identical",
     alreadyHaveAnAccount:
-      "Already have an account? Click <a class='text-primary-200 underline' href='/login'>here</a>, to log in.",
+      "Already have an account? Click {0}, to log in.",
+    here: "here",
     login: "Login",
     dontHaveAnAccount:
-      "Don't have an account? Click <a class='text-primary-200 underline' href='/register'>here</a>, to sign up.",
+      "Don't have an account? Click {0}, to sign up.",
   },
 };
