@@ -61,7 +61,8 @@ export default {
             }
             this.passwordConfirmErrorMessage = "";
 
-            fetch("/api/auth/register", {
+            console.log(import.meta.env.PUBLIC_API_URL+"/auth/register");
+            fetch(import.meta.env.PUBLIC_API_URL+"/auth/register", {
                 method: "POST",
                 headers: {
                 'Accept': 'application/json',

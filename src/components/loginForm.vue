@@ -58,8 +58,7 @@ export default {
   },
   methods: {
     login(): void {
-      console.log("nig");
-      fetch("/api/auth/login", {
+      fetch(import.meta.env.PUBLIC_API_URL+"/auth/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
