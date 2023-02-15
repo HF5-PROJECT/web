@@ -32,7 +32,9 @@
             }}</BaseButton>
           </div>
           <div>
-            <p class="text-primary-300 font-bold w-full mb-4 text-sm" v-html="$t('auth.dontHaveAnAccount')"></p>
+            <i18n-t keypath="auth.dontHaveAnAccount"  scope="global" class="text-primary-300 font-bold w-full mb-4 text-sm" tag="p">
+              <a class='text-primary-200 underline' href='/register'>{{ $t('auth.here') }}</a>
+            </i18n-t>
           </div>
         </form>
       </div>
@@ -72,7 +74,6 @@ export default {
         .then(async (response) => {
           const json = await response.json();
           if (response.status === 200) {
-            localStorage.setItem('accessToken', json.accessToken);
             window.location.href = "/";
           } else {
             this.errorMessage = json.message;
