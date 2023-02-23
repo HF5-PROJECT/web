@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-12 rounded-[50px] bg-primary-600">
+  <div class="mx-auto p-12 rounded-[50px] bg-primary-600 w-full max-w-[468px]">
     <div class="p-4">
       <h1 class="text-3xl font-medium mb-1">{{ $t("auth.register") }}</h1>
       <p>{{ $t("auth.fillOutYourInfo") }}</p>
@@ -37,7 +37,7 @@
             <p class="text-red-500 w-full ml-2 mb-2 pt-4 text-xs">
               {{ errorMessage }}
             </p>
-            <BaseButton type="submit" @click="register">{{
+            <BaseButton color="secondary" type="submit" @click="register">{{
               $t("auth.register")
             }}</BaseButton>
           </div>

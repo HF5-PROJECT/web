@@ -25,10 +25,13 @@
           >{{ hotel.address }}</span
         >
       </div>
-      <BaseButton type="button" class="mb-4 bg-primary-300 text-primary-500"
+      <BaseButton
+        type="button"
+        color="primary"
+        class="mb-4 text-primary-500 bg-primary-300"
         >Værelser</BaseButton
       >
-      <BaseButton type="button">Book</BaseButton>
+      <BaseButton type="button" color="secondary">Book</BaseButton>
     </div>
   </div>
 </template>
