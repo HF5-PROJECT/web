@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BaseButton from "../components/base/button.vue";
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <BaseButton type={"button"}>Log out</BaseButton>
+  </main>
+  <script>
+    const button = document.querySelector("main > button");
+
+    if (button) {
+      button.addEventListener("click", async () => {
+        fetch(import.meta.env.PUBLIC_API_URL + "/auth/logout", {
+          method: "POST",
+        }).then(() => {
+          window.location.href = "/login";
+        });
+      });
+    }
+  </script>
+</Layout>
+
+<style></style>

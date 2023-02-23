@@ -1,11 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import RegisterForm from "../components/registerForm.vue";
+import Layout from "../layouts/Layout.astro";
+import RegisterForm from "../components/auth/registerForm.vue";
 ---
 
 <Layout title="Register">
-	<div class="flex h-full content-center place-items-center">
-		<RegisterForm client:load></RegisterForm>
-	</div>
+  <div class="flex mt-16 content-center place-items-center">
+    <RegisterForm client:load />
+  </div>
 </Layout>
-
