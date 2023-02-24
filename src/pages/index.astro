@@ -9,9 +9,9 @@ const hotels = await (
 ).json();
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Overnites">
   <main class="flex flex-wrap justify-center gap-8 p-24">
-    {hotels.map((hotel: any) => <HotelCard client:load hotel={hotel} />)}
+    {hotels.map((hotel: any) => <HotelCard hotel={hotel} />)}
   </main>
 </Layout>
 
