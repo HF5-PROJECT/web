@@ -1,39 +1,42 @@
 <template>
-  <div class="mx-auto p-12 rounded-[50px] w-min bg-primary-600">
+  <div class="mx-auto p-12 rounded-[50px] bg-primary-600 w-full max-w-[468px]">
     <div class="p-4">
       <h1 class="text-3xl font-medium mb-1">{{ $t("auth.login") }}</h1>
       <p>{{ $t("auth.fillOutYourInfo") }}</p>
       <div class="mt-12">
         <form class="space-y-5">
-          <div class="w-96">
-            <BaseInput
-              id="email"
-              type="email"
-              v-model="email"
-              :place-holder="$t('auth.email')"
-            ></BaseInput>
-          </div>
-          <div class="w-96">
-            <BaseInput
-              id="password"
-              type="password"
-              v-model="password"
-              :place-holder="$t('auth.password')"
-            ></BaseInput>
-          </div>
+          <BaseInput
+            id="email"
+            type="email"
+            v-model="email"
+            :place-holder="$t('auth.email')"
+          ></BaseInput>
+          <BaseInput
+            id="password"
+            type="password"
+            v-model="password"
+            :place-holder="$t('auth.password')"
+          ></BaseInput>
           <div>
             <span
               v-if="errorMessage"
               class="text-red-600 w-full ml-2 mb-4 text-xs"
               >{{ errorMessage }}</span
             >
-            <BaseButton type="submit" @click="login">{{
+            <BaseButton color="secondary" type="submit" @click="login">{{
               $t("auth.login")
             }}</BaseButton>
           </div>
           <div>
-            <i18n-t keypath="auth.dontHaveAnAccount"  scope="global" class="text-primary-300 font-bold w-full mb-4 text-sm" tag="p">
-              <a class='text-primary-200 underline' href='/register'>{{ $t('auth.here') }}</a>
+            <i18n-t
+              keypath="auth.dontHaveAnAccount"
+              scope="global"
+              class="text-primary-300 font-bold w-full mb-4 text-sm"
+              tag="p"
+            >
+              <a class="text-primary-200 underline" href="/register">{{
+                $t("auth.here")
+              }}</a>
             </i18n-t>
           </div>
         </form>
@@ -43,8 +46,8 @@
 </template>
 
 <script lang="ts">
-import BaseInput from "./baseInput.vue";
-import BaseButton from "./baseButton.vue";
+import BaseInput from "../base/input.vue";
+import BaseButton from "../base/button.vue";
 
 export default {
   components: {
@@ -60,7 +63,7 @@ export default {
   },
   methods: {
     login(): void {
-      fetch(import.meta.env.PUBLIC_API_URL+"/auth/login", {
+      fetch(import.meta.env.PUBLIC_API_URL + "/auth/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
