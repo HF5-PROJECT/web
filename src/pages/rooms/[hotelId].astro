@@ -20,8 +20,6 @@ const roomTypes = await (
   )
 ).json();
 
-console.log(roomTypes)
-
 if (roomTypes && roomTypes?.statusCode === 400) {
   return new Response(null, {
     status: 404,
