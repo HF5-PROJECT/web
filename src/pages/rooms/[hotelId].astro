@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import RoomTypesCard from "../../components/room/card.vue";
+
+const { hotelId } = Astro.params;
+
+if (!hotelId || !isNumber(hotelId)) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not found",
+  });
+}
+
+const roomTypes = await (
+  await fetch(
+    import.meta.env.PRIVATE_API_URL + "/hotel/" + hotelId + "/room_types",
+    {
+      method: "GET",
+    }
+  )
+).json();
+
+if (roomTypes && roomTypes?.statusCode === 400) {
+  return new Response(null, {
+    status: 404,
+    statusText: "Not found",
+  });
+}
+
+function isNumber(value: string | number): boolean {
+  return value != null && value !== "" && !isNaN(Number(value.toString()));
+}
+---
+
+<Layout title="Overnites">
+  <main class="flex flex-wrap justify-center gap-8 sm:p-24 p-4">
+    {roomTypes.map((roomType: any) => <RoomTypesCard roomType={roomType} />)}
+  </main>
+</Layout>
+
+<style></style>

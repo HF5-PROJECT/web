@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-primary-600 rounded-[25px] w-[356px]">
-    <img src="" class="h-44 rounded-[25px] bg-white" />
-    <div class="p-5 flex flex-col">
+  <div class="bg-primary-600 rounded-[25px] relative h-[429px] w-[356px]">
+    <img src="" class="h-44 rounded-[25px] w-full bg-stone-100" />
+    <div class="p-5 flex flex-col  h-[253px]">
       <h1
-        class="text-2xl font-bold mb-[1px] whitespace-nowrap text-ellipsis overflow-hidden"
+        class="text-2xl font-bold mb-[1px] line-clamp-1"
       >
         {{ hotel.name }}
       </h1>
@@ -12,25 +12,28 @@
           class="border-[2px] border-primary-300 rounded-xl self-stretch mr-[3px]"
         ></div>
         <span
-          class="text-sm text-primary-300 whitespace-pre text-ellipsis overflow-hidden h-10"
+          class="text-sm text-primary-300 line-clamp-2"
           >{{ hotel.description }}</span
         >
       </div>
-      <div class="flex mb-4">
+      <div class="flex mb-auto">
         <div
           class="border-[2px] border-primary-300 rounded-xl self-stretch mr-[3px]"
         ></div>
         <span
-          class="text-sm text-primary-300 whitespace-nowrap text-ellipsis overflow-hidden"
+          class="text-sm text-primary-300 line-clamp-1"
           >{{ hotel.address }}</span
         >
       </div>
-      <BaseButton
-        type="button"
-        color="primary"
-        class="mb-4 text-primary-500 bg-primary-300"
-        >Værelser</BaseButton
-      >
+      <a :href="'/rooms/' + hotel.id">
+        <BaseButton
+          type="button"
+          color="primary"
+          class="mb-4 text-primary-500 bg-primary-300"
+          >Værelser</BaseButton
+        >
+      </a>
+
       <BaseButton type="button" color="secondary">Book</BaseButton>
     </div>
   </div>
