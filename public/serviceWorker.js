@@ -4,7 +4,7 @@
  * by using asynchronous storage (IndexedDB or WebSQL) with a simple, localStorage-like API.
  * @see https://github.com/localForage/localForage
  */
-importScripts("public/lib/localforage.min.js");
+importScripts("/lib/localforage.min.js");
 
 /**
  * ExecutionLock
