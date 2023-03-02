@@ -25,12 +25,15 @@
           >{{ hotel.address }}</span
         >
       </div>
-      <BaseButton
-        type="button"
-        color="primary"
-        class="mb-4 text-primary-500 bg-primary-300"
-        >Værelser</BaseButton
-      >
+      <a :href="'/rooms/' + hotel.id">
+        <BaseButton
+          type="button"
+          color="primary"
+          class="mb-4 text-primary-500 bg-primary-300"
+          >Værelser</BaseButton
+        >
+      </a>
+
       <BaseButton type="button" color="secondary">Book</BaseButton>
     </div>
   </div>
