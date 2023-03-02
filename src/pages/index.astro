@@ -10,7 +10,7 @@ const hotels = await (
 ---
 
 <Layout title="Overnites">
-  <main class="flex flex-wrap justify-center gap-8 p-24">
+  <main class="flex flex-wrap justify-center gap-8 sm:p-24 p-4">
     {hotels.map((hotel: any) => <HotelCard hotel={hotel} />)}
   </main>
 </Layout>
