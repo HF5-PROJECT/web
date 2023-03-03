@@ -3,15 +3,14 @@ import Main from "./Main.astro";
 import Header from "../components/the/header.vue";
 
 export interface Props {
-  title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <Main title={title}>
-  <body class="h-full">
-    <Header client:load />
-    <slot />
-  </body>
+    <body>
+        <slot />
+    </body>
 </Main>
