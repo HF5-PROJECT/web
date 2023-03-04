@@ -1,6 +1,6 @@
 ---
+import AdminHeader from "./AdminHeader.astro";
 import Main from "./Main.astro";
-import Header from "../components/the/header.vue";
 
 export interface Props {
     title: string;
@@ -11,6 +11,8 @@ const { title } = Astro.props;
 
 <Main title={title}>
     <body>
-        <slot />
+        <AdminHeader>
+            <slot />
+        </AdminHeader>
     </body>
 </Main>

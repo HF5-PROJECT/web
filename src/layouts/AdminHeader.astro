@@ -1,3 +1,33 @@
+---
+const headers = Astro.request.headers;
+
+if (!headers.has("authorization")) {
+    Astro.response.status = 404;
+    return Astro.redirect("/login");
+}
+
+const authenticationHeader = headers.get("authorization");
+
+if (!authenticationHeader) {
+    return Astro.redirect("/login");
+}
+
+const user = await (
+    await fetch(import.meta.env.PRIVATE_API_URL + "/auth/user", {
+        method: "GET",
+        headers: {
+            Authorization: authenticationHeader,
+        },
+    })
+).json();
+
+console.log(user);
+
+if (user && user?.statusCode === 401) {
+    return Astro.redirect("/login");
+}
+---
+
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
     <aside
         class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-primary-600"
@@ -5,7 +35,8 @@
         <div class="sidebar-header flex items-center justify-center py-4">
             <div class="inline-flex">
                 <a href="/" class="inline-flex flex-row items-center h-10">
-                    <svg class="h-6"
+                    <svg
+                        class="h-6"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="244.4 354.88 535.18 58.23"
                         ><g
@@ -91,113 +122,184 @@
                 <li class="my-px">
                     <span
                         class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase"
-                        >Projects</span
+                        >Admin</span
                     >
                 </li>
-                <li class="my-px">
-                    <a
-                        href="#"
-                        class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                    >
-                        <span
-                            class="flex items-center justify-center text-lg text-gray-400"
-                        >
-                            <svg
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                class="h-6 w-6"
+
+                {
+                    (user.permissions.includes("Hotel Create") ||
+                        user.permissions.includes("Hotel Update") ||
+                        user.permissions.includes("Hotel Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin/hotel"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                             >
-                                <path
-                                    d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-                                ></path>
-                            </svg>
-                        </span>
-                        <span class="ml-3">Manager</span>
-                    </a>
-                </li>
-                <li class="my-px">
-                    <a
-                        href="#"
-                        class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                    >
-                        <span
-                            class="flex items-center justify-center text-lg text-gray-400"
-                        >
-                            <svg
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                class="h-6 w-6"
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Hotel</span>
+                            </a>
+                        </li>
+                    )
+                }
+
+                {
+                    (user.permissions.includes("HotelSetting GetAll") ||
+                        user.permissions.includes("HotelSetting Get") ||
+                        user.permissions.includes("HotelSetting Create") ||
+                        user.permissions.includes("HotelSetting Update") ||
+                        user.permissions.includes("HotelSetting Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                             >
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                                ></path>
-                            </svg>
-                        </span>
-                        <span class="ml-3">Tasks</span>
-                    </a>
-                </li>
-                <li class="my-px">
-                    <a
-                        href="#"
-                        class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                    >
-                        <span
-                            class="flex items-center justify-center text-lg text-gray-400"
-                        >
-                            <svg
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                class="h-6 w-6"
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Hotel Setting</span>
+                            </a>
+                        </li>
+                    )
+                }
+
+                {
+                    (user.permissions.includes("HotelInformation Create") ||
+                        user.permissions.includes("HotelInformation Update") ||
+                        user.permissions.includes("HotelInformation Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                             >
-                                <path
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                                ></path>
-                            </svg>
-                        </span>
-                        <span class="ml-3">Clients</span>
-                        <span
-                            class="flex items-center justify-center text-xs text-red-500 font-semibold bg-red-100 h-6 px-2 rounded-full ml-auto"
-                            >1k</span
-                        >
-                    </a>
-                </li>
-                <li class="my-px">
-                    <a
-                        href="#"
-                        class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
-                    >
-                        <span
-                            class="flex items-center justify-center text-lg text-green-400"
-                        >
-                            <svg
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                class="h-6 w-6"
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Hotel Information</span>
+                            </a>
+                        </li>
+                    )
+                }
+
+                {
+                    (user.permissions.includes("Floor GetAll") ||
+                        user.permissions.includes("Floor Get") ||
+                        user.permissions.includes("Floor Create") ||
+                        user.permissions.includes("Floor Update") ||
+                        user.permissions.includes("Floor Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                             >
-                                <path
-                                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                                ></path>
-                            </svg>
-                        </span>
-                        <span class="ml-3">Add new</span>
-                    </a>
-                </li>
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Floor</span>
+                            </a>
+                        </li>
+                    )
+                }
+
+                {
+                    (user.permissions.includes("Room GetAll") ||
+                        user.permissions.includes("Room Get") ||
+                        user.permissions.includes("Room Create") ||
+                        user.permissions.includes("Room Update") ||
+                        user.permissions.includes("Room Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                            >
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Room</span>
+                            </a>
+                        </li>
+                    )
+                }
+
+                {
+                    (user.permissions.includes("RoomType Create") ||
+                        user.permissions.includes("RoomType Update") ||
+                        user.permissions.includes("RoomType Delete")) && (
+                        <li class="my-px">
+                            <a
+                                href="/admin"
+                                class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                            >
+                                <span class="flex items-center justify-center text-lg text-gray-400">
+                                    <svg
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                    >
+                                        <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                </span>
+                                <span class="ml-3">Room Type</span>
+                            </a>
+                        </li>
+                    )
+                }
+
                 <li class="my-px">
                     <span
                         class="flex font-medium text-sm text-gray-300 px-4 my-4 uppercase"
@@ -206,7 +308,7 @@
                 </li>
                 <li class="my-px">
                     <a
-                        href="#"
+                        href="/user"
                         class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                     >
                         <span
@@ -287,8 +389,8 @@
                 </li>
                 <li class="my-px">
                     <a
-                        href="#"
-                        class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                        id="logoutButton"
+                        class="flex flex-row cursor-pointer items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700"
                     >
                         <span
                             class="flex items-center justify-center text-lg text-red-400"
@@ -374,14 +476,15 @@
                             alt="profile image"
                             class="h-10 w-10 bg-primary-500 border border-black rounded-full"
                         />
-                        <span class="flex flex-col ml-2">
+                        <span class="flex flex-col ml-3">
                             <span
-                                class="truncate w-20 text-gray-200 font-semibold tracking-wide leading-none"
-                                >John Doe</span
+                                class="truncate text-gray-200 font-semibold tracking-wide leading-none"
+                                >{user.name}</span
                             >
                             <span
                                 class="truncate w-20 text-gray-400 text-xs leading-none mt-1"
-                                >Manager</span
+                                title={user.roles.join(", ")}
+                                >{user.roles.join(", ")}</span
                             >
                         </span>
                     </a>
@@ -400,3 +503,19 @@
         </footer>
     </main>
 </div>
+
+<script>
+    function handleLogout() {
+        fetch(import.meta.env.PUBLIC_API_URL + "/auth/logout", {
+            method: "POST",
+        }).then(() => {
+            window.location.href = "/";
+        });
+    }
+
+    const logoutButton = document.getElementById("logoutButton");
+
+    if (logoutButton) {
+        logoutButton.addEventListener("click", handleLogout);
+    }
+</script>

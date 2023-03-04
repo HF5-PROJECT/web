@@ -345,7 +345,7 @@ function isAuthorizeUrls(url) {
  * @return {boolean}
  */
 function isUnauthorizeUrls(url) {
-  const urlsExact = ["/api/auth/logout"];
+  const urlsExact = ["/api/auth/logout", "/logout"];
 
   return matchUrls(url, urlsExact);
 }
