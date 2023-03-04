@@ -1,14 +1,22 @@
 ---
+import Hotels from "../../components/admin/hotel.vue";
 import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const hotels = await (
+    await fetch(import.meta.env.PRIVATE_API_URL + "/hotel", {
+        method: "GET",
+    })
+).json();
 ---
 
 <AdminLayout title="Overnites">
-        <h1 class="font-bold text-2xl text-gray-700">Hotel</h1>
+    <h1 class="font-bold text-2xl text-gray-700">Hotel</h1>
 
-        <div
-            class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4"
-        >
+    <div class="flex flex-col flex-grow rounded mt-4">
+        <div>
+            {hotels.map((hotel: any) => <Hotels hotel={hotel} client:idle/>)}
         </div>
+    </div>
 </AdminLayout>
 
 <style></style>
