@@ -1,5 +1,5 @@
 ---
-import Hotels from "../../components/admin/hotel.vue";
+import Hotels from "../../components/admin/hotels.vue";
 import AdminLayout from "../../layouts/AdminLayout.astro";
 
 const hotels = await (
@@ -12,11 +12,7 @@ const hotels = await (
 <AdminLayout title="Overnites">
     <h1 class="font-bold text-2xl text-gray-700">Hotel</h1>
 
-    <div class="flex flex-col flex-grow rounded mt-4">
-        <div>
-            {hotels.map((hotel: any) => <Hotels hotel={hotel} client:idle/>)}
-        </div>
-    </div>
+    <Hotels hotelsData={hotels} client:idle></Hotels>
 </AdminLayout>
 
 <style></style>
