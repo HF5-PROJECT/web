@@ -1,14 +1,17 @@
-FROM node:19 AS base
+FROM node:lts-alpine AS base
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-FROM base AS prod
+FROM denoland/deno:alpine as prod
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
+RUN apk add npm
 RUN npm install
 COPY . /usr/src/app
-ENV HOST 0.0.0.0
-CMD [ "npm", "run", "start" ]
+RUN npm run build
+CMD [ "npm", "run", "preview" ]
 
 FROM base AS dev
 ENV HOST 0.0.0.0
-CMD /bin/bash -c 'npm install; npm run dev -- --host'
+CMD /bin/ash -c 'npm install; npm run dev -- --host'
