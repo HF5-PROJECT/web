@@ -13,10 +13,14 @@ import node from "@astrojs/node";
 import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
+import sitemap from "@astrojs/sitemap";
+
+// https://astro.build/config
 export default defineConfig({
+  site: 'https://overnites.binau.dev',
   integrations: [tailwind(), vue({
     appEntrypoint: '/src/pages/_app'
-  }), prefetch()],
+  }), prefetch(), sitemap()],
   output: "server",
   adapter: node({
     mode: 'server'
