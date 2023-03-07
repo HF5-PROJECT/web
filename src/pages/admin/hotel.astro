@@ -2,14 +2,41 @@
 import Hotels from "../../components/admin/hotels.vue";
 import AdminLayout from "../../layouts/AdminLayout.astro";
 
+const headers = Astro.request.headers;
+if (!headers.has("authorization")) {
+    return Astro.redirect("/login");
+}
+
+const authenticationHeader = headers.get("authorization");
+if (!authenticationHeader) {
+    return Astro.redirect("/login");
+}
+
+const user = await (
+    await fetch(import.meta.env.PRIVATE_API_URL + "/auth/user", {
+        method: "GET",
+        headers: {
+            Authorization: authenticationHeader,
+        },
+    })
+).json();
+
+if (user && user?.statusCode === 401) {
+    return Astro.redirect("/login");
+}
+
 const hotels = await (
     await fetch(import.meta.env.PRIVATE_API_URL + "/hotel", {
         method: "GET",
     })
 ).json();
+
+if (hotels && hotels?.statusCode === 401) {
+    return Astro.response.status = 401
+}
 ---
 
-<AdminLayout title="Overnites">
+<AdminLayout title="Overnites" user={user}>
     <h1 class="font-bold text-2xl text-gray-700">Hotel</h1>
 
     <Hotels hotelsData={hotels} client:idle></Hotels>

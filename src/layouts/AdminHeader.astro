@@ -1,31 +1,9 @@
 ---
-const headers = Astro.request.headers;
-
-if (!headers.has("authorization")) {
-    Astro.response.status = 404;
-    return Astro.redirect("/login");
+export interface Props {
+    user: Object;
 }
 
-const authenticationHeader = headers.get("authorization");
-
-if (!authenticationHeader) {
-    return Astro.redirect("/login");
-}
-
-const user = await (
-    await fetch(import.meta.env.PRIVATE_API_URL + "/auth/user", {
-        method: "GET",
-        headers: {
-            Authorization: authenticationHeader,
-        },
-    })
-).json();
-
-console.log(user);
-
-if (user && user?.statusCode === 401) {
-    return Astro.redirect("/login");
-}
+const { user } = Astro.props;
 ---
 
 <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
