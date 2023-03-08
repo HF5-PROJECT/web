@@ -37,7 +37,7 @@
                         <button @click="deleteHotel()"
                             class="inline-flex mr-4 justify-center rounded-md bg-red-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">Delete</button>
                         <button @click="updateOrCreateHotel()"
-                            class="inline-flex justify-center rounded-md bg-blue-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">Save</button>
+                            class="inline-flex justify-center rounded-md bg-blue-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">{{ computedCreateUpdateButton }}</button>
                     </div>
                 </div>
             </form>
@@ -68,10 +68,16 @@ export default {
 
             return errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);;
         },
+
+        computedCreateUpdateButton() {
+            return this.hotel.id === undefined ? 'Create' : 'Update' ;
+        },
     },
 
     methods: {
         async updateOrCreateHotel() {
+            this.errorMessage = '';
+
             let response;
             if (this.hotel.id === undefined) {
                 response = await fetch(import.meta.env.PUBLIC_API_URL + "/hotel/", {
@@ -101,10 +107,15 @@ export default {
 
             if (response.status === 400) {
                 this.errorMessage = json.message;
+                return;
             }
+
+            this.hotel.id = json.id
         },
 
         async deleteHotel() {
+            this.errorMessage = '';
+
             if (this.hotel.id !== undefined) {
                 let response = await fetch(import.meta.env.PUBLIC_API_URL + "/hotel/" + this.hotel.id, {
                     method: "DELETE",
