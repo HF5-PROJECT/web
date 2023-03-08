@@ -7,10 +7,10 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 
 // https://astro.build/config
-import node from "@astrojs/node";
+import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
-import prefetch from "@astrojs/prefetch";
+import deno from "@astrojs/deno";
 
 // https://astro.build/config
 import sitemap from "@astrojs/sitemap";
@@ -25,7 +25,7 @@ export default defineConfig({
     appEntrypoint: '/src/pages/_app'
   }), prefetch(), sitemap(), compress()],
   output: "server",
-  adapter: node({
-    mode: 'server'
+  adapter: deno({
+    port: 3000,
   })
 });
