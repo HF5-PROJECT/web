@@ -15,15 +15,13 @@ import deno from "@astrojs/deno";
 // https://astro.build/config
 import sitemap from "@astrojs/sitemap";
 
-// https://astro.build/config
-import compress from "astro-compress";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://overnites.binau.dev',
   integrations: [tailwind(), vue({
     appEntrypoint: '/src/pages/_app'
-  }), prefetch(), sitemap(), compress()],
+  }), prefetch(), sitemap()],
   output: "server",
   adapter: deno({
     port: 3000,
