@@ -1,0 +1,32 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+
+const authenticationHeader = Astro.request.headers.get("authorization");
+if (!authenticationHeader) {
+    return Astro.redirect("/login");
+}
+
+const user = await (
+    await fetch(import.meta.env.PRIVATE_API_URL + "/auth/user", {
+        method: "GET",
+        headers: {
+            Authorization: authenticationHeader,
+        },
+    })
+).json();
+
+if (user && user?.statusCode === 401) {
+    return Astro.redirect("/login");
+}
+---
+
+<AdminLayout title="Overnites" user={user}>
+        <h1 class="font-bold text-2xl text-gray-700">Dashboard</h1>
+
+        <div
+            class="flex flex-col flex-grow border-4 border-gray-400 border-dashed bg-white rounded mt-4"
+        >
+        </div>
+</AdminLayout>
+
+<style></style>

@@ -112,7 +112,6 @@ export default {
           }
         })
         .catch((response) => {
-          console.log(response);
           this.errorMessage = response.message;
         });
     },
