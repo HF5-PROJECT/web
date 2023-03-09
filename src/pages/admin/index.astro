@@ -1,12 +1,7 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
 
-const headers = Astro.request.headers;
-if (!headers.has("authorization")) {
-    return Astro.redirect("/login");
-}
-
-const authenticationHeader = headers.get("authorization");
+const authenticationHeader = Astro.request.headers.get("authorization");
 if (!authenticationHeader) {
     return Astro.redirect("/login");
 }

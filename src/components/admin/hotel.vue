@@ -126,8 +126,6 @@ export default {
                     body: JSON.stringify(this.hotel)
                 })
 
-                console.log(response)
-
                 if (response.status !== 204) {
                     return;
                 }
