@@ -7,7 +7,7 @@
             </button>
         </div>
 
-        <Hotel v-for="(hotel, index) in hotels" :hotel="hotel" @delete="deleteHotel(index)"></Hotel>
+        <Hotel v-for="(hotel, index) in hotels" :key="hotel.UUID" :hotel="hotel" @delete="deleteHotel(index)"></Hotel>
     </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 
     data() {
         return {
-            hotels: [] as Array<Object>,
+            hotels: [] as Array<any>,
         };
     },
 
@@ -33,12 +33,18 @@ export default {
     },
 
     mounted() {
-        this.hotels = this.hotelsData;
+        this.hotelsData.forEach((hotel) => {
+            this.hotels.push({
+                UUID: self.crypto.randomUUID(),
+                ...hotel,
+            })
+        })
     },
 
     methods: {
         addHotel() {
             this.hotels.unshift({
+                UUID: self.crypto.randomUUID(),
                 name: '',
                 description: '',
                 address: '',
